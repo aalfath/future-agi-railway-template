@@ -109,7 +109,12 @@ case "$EDGE_PORT" in 3000|4317|4318|6379|7233|8000|8060|8080|9005|9006|9464)
   echo "[railway] PORT=$EDGE_PORT clashes with an internal port; use 8090" >&2; exit 1 ;;
 esac
 sed "s/__PORT__/${EDGE_PORT}/g" /opt/railway/edge.conf.template > /etc/futureagi/edge.conf
-mkdir -p /var/lib/nginx-edge /data
+mkdir -p /var/lib/nginx-edge /data /run/railway-edge
+chmod 755 /run/railway-edge
+# Keep sign-up closed from the first request after a restart (signup-guard.sh).
+if [ "${FUTURE_AGI_OPEN_SIGNUP:-false}" != "true" ] && [ -f /data/.railway-signup-closed ]; then
+  touch /run/railway-edge/signup-closed && chmod 644 /run/railway-edge/signup-closed
+fi
 
 echo "[railway] Future AGI v1.59.1: public URL ${PUBLIC_URL}, edge on :${EDGE_PORT}, Postgres ${PG_HOST}, ClickHouse ${CH_HOST}, model serving ${MODEL_SERVING_URL:-off}"
 exec /opt/futureagi/bin/start

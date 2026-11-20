@@ -49,9 +49,9 @@ http {
         }
 
         # Sign-up stays open until the first account exists (signup-guard.sh).
-        location = /accounts/signup/ {
+        location ~ ^/+accounts/+signup {
             default_type application/json;
-            if (-f /data/.railway-signup-closed) {
+            if (-f /run/railway-edge/signup-closed) {
                 return 403 '{"status":false,"result":"Sign-up is closed on this instance. Ask an owner for an invite."}';
             }
             proxy_pass http://127.0.0.1:8000;
