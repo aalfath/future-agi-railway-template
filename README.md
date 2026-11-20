@@ -29,6 +29,7 @@ Railway template for [Future AGI](https://github.com/future-agi/future-agi) **v1
 | Future AGI | `SECRET_KEY`, `REDIS_PASSWORD`, `MINIO_ROOT_PASSWORD`, `AGENTCC_INTERNAL_API_KEY`, `AGENTCC_ADMIN_TOKEN`, `AGENTCC_WEBHOOK_SECRET`, `PROPERTY_CATALOG_CH_PASSWORD`, `PROPERTY_CATALOG_CONSUMER_PASSWORD` | generated |
 | Future AGI | `INTEGRATION_ENCRYPTION_KEY` | generated Fernet key (43 URL-safe characters plus `=`) |
 | Future AGI | `PORT` | `8090` (the edge proxy) |
+| Future AGI, Serving, ClickHouse | `RAILWAY_HEALTHCHECK_TIMEOUT_SEC` | `1800`, `600`, `300` (the first boot migrates for about 5 to 10 minutes) |
 
 Nothing is prompted at deploy. Optional, on the Future AGI service: `FUTURE_AGI_OPEN_SIGNUP`, `FUTURE_AGI_TELEMETRY_DISABLED=true` (upstream's anonymous deployment telemetry), Mailgun email (`MAILGUN_API_KEY`, `MAILGUN_SENDER_DOMAIN`, `DEFAULT_FROM_EMAIL`), and provider keys such as `OPENAI_API_KEY` (you can also add keys in the app).
 
