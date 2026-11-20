@@ -1,0 +1,7 @@
+<!-- Listen on IPv6 (Railway's private network) and IPv4; listen_try keeps
+     the server up where one of the two families is missing. -->
+<clickhouse>
+    <listen_host>::</listen_host>
+    <listen_host>0.0.0.0</listen_host>
+    <listen_try>1</listen_try>
+</clickhouse>
